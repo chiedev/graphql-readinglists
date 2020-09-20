@@ -14,25 +14,25 @@ const {
 } = graphql;
 
 // dummy data
-let books = [
-    { name: 'Name of the Wind', genre: 'Fanstasy', id: '1', authorId: '1'},
-    { name: 'The Final Empire', genre: 'Fanstasy', id: '2', authorId: '2'},
-    { name: 'The Long Earth', genre: 'Sci-Fi', id: '3', authorId: '3'},
-    { name: 'The Hero of Ages', genre: 'Fantasy', id: '4', authorId: '2'},
-    { name: 'The Colour of Magic', genre: 'Fantasy', id: '5', authorId: '3'},
-    { name: 'The Light Fantastic', genre: 'Fantasy', id: '6', authorId: '3'}
+/** let books = [
+    { name: 'Name of the Wind', genre: 'Fantasy', _id: '1', authorId: '1'},
+    { name: 'The Final Empire', genre: 'Fantasy', _id: '2', authorId: '2'},
+    { name: 'The Long Earth', genre: 'Sci-Fi', _id: '3', authorId: '3'},
+    { name: 'The Hero of Ages', genre: 'Fantasy', _id: '4', authorId: '2'},
+    { name: 'The Colour of Magic', genre: 'Fantasy', _id: '5', authorId: '3'},
+    { name: 'The Light Fantastic', genre: 'Fantasy', _id: '6', authorId: '3'}
 ];
 
 let authors = [
-    { name: 'Patrick Rothfuss', age: 44, id: '1'},
-    { name: 'Brandon Sanderson', age: 42, id: '2'},
-    { name: 'Terry Pratchet', age: 66, id: '3'}
-];
+    { name: 'Patrick Rothfuss', age: 44, _id: '1'},
+    { name: 'Brandon Sanderson', age: 42, _id: '2'},
+    { name: 'Terry Pratchet', age: 66, _id: '3'}
+]; **/
 
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: ( ) => ({
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         name: { type: GraphQLString },
         genre: { type: GraphQLString },
         author: {
@@ -48,7 +48,7 @@ const BookType = new GraphQLObjectType({
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
     fields: ( ) => ({
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         name: { type: GraphQLString },
         age: { type: GraphQLInt },
         books: {
@@ -66,7 +66,7 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         book: {
             type: BookType,
-            args: { id: { type: GraphQLID } },
+            args: { _id: { type: GraphQLID } },
             resolve(parent, args){
                 return Book.findById(args.id);
                 // return _.find(books, {id: args.id});
@@ -74,7 +74,7 @@ const RootQuery = new GraphQLObjectType({
         },
         author: {
             type: AuthorType,
-            args: { id: { type: GraphQLID } },
+            args: { _id: { type: GraphQLID } },
             resolve(parent, args){
                 return Author.findById(args.id);
                 // return _.find(authors, {id: args.id});
@@ -119,13 +119,13 @@ const Mutation = new GraphQLObjectType({
             args: {
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 genre: { type: new GraphQLNonNull(GraphQLString) },
-                authorId: { type: new GraphQLNonNull(GraphQLID) }
+                author_Id: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args){
                 let book = new Book({
                     name: args.name,
                     genre: args.genre,
-                    authorId: args.authorId
+                    authorId: args.author_Id
                 });
                 return book.save();
             }
