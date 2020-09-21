@@ -7,7 +7,7 @@ import BookDetails from './BookDetails';
 
 class BookList extends Component {
     constructor(props){
-        super(props);
+        super();
         this.state = {
             selected: null
         }
@@ -19,7 +19,7 @@ class BookList extends Component {
         } else {
             return data.books.map(book => {
                 return(
-                    <li key={ book.id } onClick={ (e) => this.setState({ selected: book.id }) }>{ book.name }</li>
+                    <li key={ book._id } onClick={ (e) => this.setState({ selected: book._id }) }>{ book.name }</li>
                 );
             })
         }

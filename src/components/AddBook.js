@@ -4,7 +4,7 @@ import { getAuthorsQuery, addBookMutation, getBooksQuery } from '../queries/quer
 
 class AddBook extends Component {
     constructor(props){
-        super(props);
+        super();
         this.state = {
             name: '',
             genre: '',
@@ -17,7 +17,7 @@ class AddBook extends Component {
             return( <option disabled>Loading authors</option> );
         } else {
             return data.authors.map(author => {
-                return( <option key={ author.id } value={author.id}>{ author.name }</option> );
+                return( <option key={ author._id } value={author._id}>{ author.name }</option> );
             });
         }
     }
